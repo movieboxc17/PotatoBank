@@ -132,7 +132,8 @@
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Accounts</a></li>
-                <li><a href="#">Transactions</a></li>
+                <li><a href="#" onclick="toggleTransactions()">Transactions</a></li> <!-- Updated the link -->
+                <li><a href="#">Translation</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
         </nav>
@@ -147,10 +148,8 @@
             </div>
             <div id="recent-transactions">
                 <h3>Recent Transactions</h3>
-                <ul>
-                    <li>Deposit: $1,000 (08/25/2023)</li>
-                    <li>Withdrawal: $500 (08/24/2023)</li>
-                    <li>Deposit: $2,000 (08/23/2023)</li>
+                <ul id="transactions-list">
+                    <!-- Transaction items will be added here -->
                 </ul>
             </div>
         </section>
@@ -158,7 +157,6 @@
             <h2>Account Actions</h2>
             <button id="deposit-btn" onclick="makeDeposit()">Make a Deposit</button>
             <button id="withdraw-btn" onclick="makeWithdrawal()">Make a Withdrawal</button>
-            <button id="transaction-btn" onclick="toggleTransactions()">View Transactions</button>
         </section>
         <section id="transaction-history">
             <h2>Transaction History</h2>
@@ -167,9 +165,7 @@
             </ul>
         </section>
     </main>
-    <footer>
-        <p>Contact us at: contact@potatobank.com</p>
-    </footer>
+    <!-- ... (your existing code) ... -->
     <script>
         // Placeholder for balance (in a real application, you'd fetch this from a server)
         let balance = 5000;
@@ -233,10 +229,6 @@
             const balanceElement = document.getElementById("balance");
             balanceElement.textContent = `Balance: $${balance.toFixed(2)}`;
         }
-
-        // Attach the event handlers to the buttons
-        document.getElementById("deposit-btn").addEventListener("click", makeDeposit);
-        document.getElementById("withdraw-btn").addEventListener("click", makeWithdrawal);
     </script>
 </body>
 </html>
