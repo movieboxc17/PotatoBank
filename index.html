@@ -101,13 +101,27 @@
             display: none;
         }
 
-        /* Footer Styles */
-        footer {
+        /* Login and Signup Form Styles */
+        #login-signup {
             text-align: center;
             margin-top: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
             padding: 10px;
-            background-color: #1e6eb5;
-            color: #fff;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
         /* Responsive Design */
@@ -163,6 +177,28 @@
             <ul id="transactions-list">
                 <!-- Transaction items will be added here -->
             </ul>
+        </section>
+        <section id="login-signup">
+            <h2>Login or Sign Up</h2>
+            <form id="login-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required><br><br>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br><br>
+
+                <button type="button" onclick="login()">Login</button>
+            </form>
+
+            <form id="signup-form" style="display: none;">
+                <label for="new-username">New Username:</label>
+                <input type="text" id="new-username" name="new-username" required><br><br>
+
+                <label for="new-password">New Password:</label>
+                <input type="password" id="new-password" name="new-password" required><br><br>
+
+                <button type="button" onclick="signup()">Sign Up</button>
+            </form>
         </section>
     </main>
     <!-- JavaScript Code -->
@@ -228,6 +264,47 @@
         function updateBalance() {
             const balanceElement = document.getElementById("balance");
             balanceElement.textContent = `Balance: $${balance.toFixed(2)}`;
+        }
+
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Simulated user data (replace with actual authentication)
+            const users = [
+                { username: "user1", password: "password1" },
+                { username: "user2", password: "password2" },
+            ];
+
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                alert("Login successful!");
+                // You can redirect the user to their account page or perform other actions here.
+            } else {
+                alert("Login failed. Please check your credentials.");
+            }
+        }
+
+        function signup() {
+            const newUsername = document.getElementById("new-username").value;
+            const newPassword = document.getElementById("new-password").value;
+
+            // Simulated user data (replace with actual user registration)
+            const users = [
+                { username: "user1", password: "password1" },
+                { username: "user2", password: "password2" },
+            ];
+
+            // Check if the username is already taken
+            if (users.some(u => u.username === newUsername)) {
+                alert("Username already taken. Please choose a different one.");
+            } else {
+                // Add the new user to the list (in a real app, this should be stored securely)
+                users.push({ username: newUsername, password: newPassword });
+                alert("Sign up successful! You can now login with your new account.");
+                // You can redirect the user to the login page or perform other actions here.
+            }
         }
     </script>
 </body>
