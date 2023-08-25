@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PotatoBank</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div id="logo">
+                <img src="potato_logo.png" alt="PotatoBank Logo">
+                <h1>PotatoBank</h1>
+            </div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Accounts</a></li>
+                <li><a href="#">Transactions</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="account-summary">
+            <h2>Account Summary</h2>
+            <div id="account-info">
+                <p>Account Holder: John Potato</p>
+                <p>Account Number: 123456789</p>
+                <p id="balance">Balance: $5,000</p>
+            </div>
+            <div id="recent-transactions">
+                <h3>Recent Transactions</h3>
+                <ul>
+                    <li>Deposit: $1,000 (08/25/2023)</li>
+                    <li>Withdrawal: $500 (08/24/2023)</li>
+                    <li>Deposit: $2,000 (08/23/2023)</li>
+                </ul>
+            </div>
+        </section>
+        <section id="account-actions">
+            <h2>Account Actions</h2>
+            <button id="deposit-btn">Make a Deposit</button>
+            <button id="withdraw-btn">Make a Withdrawal</button>
+        </section>
+    </main>
+    <footer>
+        <p>Contact us at: contact@potatobank.com</p>
+    </footer>
+    <script>
+        // Placeholder for balance (in a real application, you'd fetch this from a server)
+        let balance = 5000;
+
+        function makeDeposit() {
+            const depositAmount = parseFloat(prompt("Enter the deposit amount:"));
+            if (!isNaN(depositAmount) && depositAmount > 0) {
+                balance += depositAmount;
+                updateBalance();
+                // You can also update the transaction history here.
+            } else {
+                alert("Invalid deposit amount.");
+            }
+        }
+
+        function makeWithdrawal() {
+            const withdrawalAmount = parseFloat(prompt("Enter the withdrawal amount:"));
+            if (!isNaN(withdrawalAmount) && withdrawalAmount > 0 && withdrawalAmount <= balance) {
+                balance -= withdrawalAmount;
+                updateBalance();
+                // You can also update the transaction history here.
+            } else {
+                alert("Invalid withdrawal amount or insufficient balance.");
+            }
+        }
+
+        function updateBalance() {
+            const balanceElement = document.getElementById("balance");
+            balanceElement.textContent = `Balance: $${balance.toFixed(2)}`;
+        }
+
+        // Attach the event handlers to the buttons
+        document.getElementById("deposit-btn").addEventListener("click", makeDeposit);
+        document.getElementById("withdraw-btn").addEventListener("click", makeWithdrawal);
+    </script>
+</body>
+</html>
