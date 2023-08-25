@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PotatoBank</title>
+    <title>PotatoBank - Login</title>
     <style>
         /* Reset some default styles */
         body, h1, h2, h3, p, ul, li {
@@ -68,20 +68,24 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
         }
 
-        #account-summary h2 {
-            font-size: 24px;
+        /* Login Form Styles */
+        #login-form {
+            text-align: center;
+        }
+
+        label {
+            display: block;
             margin-bottom: 10px;
         }
 
-        #account-info, #recent-transactions {
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
             margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
-        ul {
-            list-style: none;
-        }
-
-        /* Buttons */
         button {
             padding: 10px 20px;
             background-color: #1e6eb5;
@@ -95,45 +99,6 @@
         button:hover {
             background-color: #15548a;
         }
-
-        /* Transaction History Styles */
-        #transaction-history {
-            display: none;
-        }
-
-        /* Login and Signup Form Styles */
-        #login-signup {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        form {
-            margin-top: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            main {
-                padding: 10px;
-            }
-            nav ul {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -141,46 +106,19 @@
         <nav>
             <div id="logo">
                 <img src="https://i.ibb.co/s9PGR6m/IMG-2805.jpg" alt="PotatoBank Logo"> <!-- Updated Logo URL -->
-                <h1>PotatoBank</h1>
+                <h1>PotatoBank - Login</h1>
             </div>
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Accounts</a></li>
-                <li><a href="#" onclick="toggleTransactions()">Transactions</a></li>
-                <li><a href="#">Translation</a></li>
+                <li><a href="#">About</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <section id="account-summary">
-            <h2>Account Summary</h2>
-            <div id="account-info">
-                <p>Account Holder: John Potato</p>
-                <p>Account Number: 123456789</p>
-                <p id="balance">Balance: $5,000</p>
-            </div>
-            <div id="recent-transactions">
-                <h3>Recent Transactions</h3>
-                <ul id="transactions-list">
-                    <!-- Transaction items will be added here -->
-                </ul>
-            </div>
-        </section>
-        <section id="account-actions">
-            <h2>Account Actions</h2>
-            <button id="deposit-btn" onclick="makeDeposit()">Make a Deposit</button>
-            <button id="withdraw-btn" onclick="makeWithdrawal()">Make a Withdrawal</button>
-        </section>
-        <section id="transaction-history">
-            <h2>Transaction History</h2>
-            <ul id="transactions-list">
-                <!-- Transaction items will be added here -->
-            </ul>
-        </section>
-        <section id="login-signup">
-            <h2>Login or Sign Up</h2>
-            <form id="login-form">
+        <section id="login-form">
+            <h2>Login</h2>
+            <form>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required><br><br>
 
@@ -189,83 +127,10 @@
 
                 <button type="button" onclick="login()">Login</button>
             </form>
-
-            <form id="signup-form" style="display: none;">
-                <label for="new-username">New Username:</label>
-                <input type="text" id="new-username" name="new-username" required><br><br>
-
-                <label for="new-password">New Password:</label>
-                <input type="password" id="new-password" name="new-password" required><br><br>
-
-                <button type="button" onclick="signup()">Sign Up</button>
-            </form>
         </section>
     </main>
     <!-- JavaScript Code -->
     <script>
-        // Placeholder for balance (in a real application, you'd fetch this from a server)
-        let balance = 5000;
-
-        function makeDeposit() {
-            const depositAmount = parseFloat(prompt("Enter the deposit amount:"));
-            if (!isNaN(depositAmount) && depositAmount > 0) {
-                balance += depositAmount;
-                updateBalance();
-                // You can also update the transaction history here.
-            } else {
-                alert("Invalid deposit amount.");
-            }
-        }
-
-        function makeWithdrawal() {
-            const withdrawalAmount = parseFloat(prompt("Enter the withdrawal amount:"));
-            if (!isNaN(withdrawalAmount) && withdrawalAmount > 0 && withdrawalAmount <= balance) {
-                balance -= withdrawalAmount;
-                updateBalance();
-                // You can also update the transaction history here.
-            } else {
-                alert("Invalid withdrawal amount or insufficient balance.");
-            }
-        }
-
-        function toggleTransactions() {
-            const transactionHistory = document.getElementById("transaction-history");
-            if (transactionHistory.style.display === "none") {
-                // Show the transaction history
-                transactionHistory.style.display = "block";
-                displayTransactions();
-            } else {
-                // Hide the transaction history
-                transactionHistory.style.display = "none";
-            }
-        }
-
-        function displayTransactions() {
-            const transactionsList = document.getElementById("transactions-list");
-
-            // Simulated transaction data (replace with actual data)
-            const transactions = [
-                { type: "Deposit", amount: 1000, date: "08/25/2023" },
-                { type: "Withdrawal", amount: 500, date: "08/24/2023" },
-                { type: "Deposit", amount: 2000, date: "08/23/2023" }
-            ];
-
-            // Clear any existing transactions
-            transactionsList.innerHTML = "";
-
-            // Add transactions to the list
-            transactions.forEach(transaction => {
-                const transactionItem = document.createElement("li");
-                transactionItem.textContent = `${transaction.type}: $${transaction.amount} (${transaction.date})`;
-                transactionsList.appendChild(transactionItem);
-            });
-        }
-
-        function updateBalance() {
-            const balanceElement = document.getElementById("balance");
-            balanceElement.textContent = `Balance: $${balance.toFixed(2)}`;
-        }
-
         function login() {
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
@@ -280,30 +145,10 @@
 
             if (user) {
                 alert("Login successful!");
-                // You can redirect the user to their account page or perform other actions here.
+                // Redirect to the banking page
+                window.location.href = "bank.html";
             } else {
                 alert("Login failed. Please check your credentials.");
-            }
-        }
-
-        function signup() {
-            const newUsername = document.getElementById("new-username").value;
-            const newPassword = document.getElementById("new-password").value;
-
-            // Simulated user data (replace with actual user registration)
-            const users = [
-                { username: "user1", password: "password1" },
-                { username: "user2", password: "password2" },
-            ];
-
-            // Check if the username is already taken
-            if (users.some(u => u.username === newUsername)) {
-                alert("Username already taken. Please choose a different one.");
-            } else {
-                // Add the new user to the list (in a real app, this should be stored securely)
-                users.push({ username: newUsername, password: newPassword });
-                alert("Sign up successful! You can now login with your new account.");
-                // You can redirect the user to the login page or perform other actions here.
             }
         }
     </script>
