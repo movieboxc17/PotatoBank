@@ -96,6 +96,11 @@
             background-color: #15548a;
         }
 
+        /* Transaction History Styles */
+        #transaction-history {
+            display: none;
+        }
+
         /* Footer Styles */
         footer {
             text-align: center;
@@ -153,6 +158,13 @@
             <h2>Account Actions</h2>
             <button id="deposit-btn" onclick="makeDeposit()">Make a Deposit</button>
             <button id="withdraw-btn" onclick="makeWithdrawal()">Make a Withdrawal</button>
+            <button id="transaction-btn" onclick="toggleTransactions()">View Transactions</button>
+        </section>
+        <section id="transaction-history">
+            <h2>Transaction History</h2>
+            <ul id="transactions-list">
+                <!-- Transaction items will be added here -->
+            </ul>
         </section>
     </main>
     <footer>
@@ -182,6 +194,39 @@
             } else {
                 alert("Invalid withdrawal amount or insufficient balance.");
             }
+        }
+
+        function toggleTransactions() {
+            const transactionHistory = document.getElementById("transaction-history");
+            if (transactionHistory.style.display === "none") {
+                // Show the transaction history
+                transactionHistory.style.display = "block";
+                displayTransactions();
+            } else {
+                // Hide the transaction history
+                transactionHistory.style.display = "none";
+            }
+        }
+
+        function displayTransactions() {
+            const transactionsList = document.getElementById("transactions-list");
+
+            // Simulated transaction data (replace with actual data)
+            const transactions = [
+                { type: "Deposit", amount: 1000, date: "08/25/2023" },
+                { type: "Withdrawal", amount: 500, date: "08/24/2023" },
+                { type: "Deposit", amount: 2000, date: "08/23/2023" }
+            ];
+
+            // Clear any existing transactions
+            transactionsList.innerHTML = "";
+
+            // Add transactions to the list
+            transactions.forEach(transaction => {
+                const transactionItem = document.createElement("li");
+                transactionItem.textContent = `${transaction.type}: $${transaction.amount} (${transaction.date})`;
+                transactionsList.appendChild(transactionItem);
+            });
         }
 
         function updateBalance() {
