@@ -1,25 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PotatoBank</title>
     <style>
-        /* Reset some default styles */
-        body, h1, h2, h3, p, ul, li {
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
         }
 
-        /* Set a background color */
-        body {
-            background-color: #f4f4f4;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Header Styles */
         header {
-            background-color: #1e6eb5;
+            background-color: #007bff;
             color: #fff;
             padding: 10px;
         }
@@ -39,6 +33,11 @@
             width: 50px;
             height: 50px;
             margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-size: 24px;
         }
 
         nav ul {
@@ -55,36 +54,37 @@
         }
 
         nav a:hover {
-            color: #ffd700; /* Change color on hover */
+            color: #ffd700;
         }
 
-        /* Main Content Styles */
         main {
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
             background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
         }
 
-        #account-summary h2 {
-            font-size: 24px;
+        h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+
+        h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        p {
             margin-bottom: 10px;
         }
 
-        #account-info, #recent-transactions {
-            margin-bottom: 20px;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        /* Buttons */
         button {
-            padding: 10px 20px;
-            background-color: #1e6eb5;
+            padding: 12px 24px;
+            background-color: #007bff;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -93,24 +93,22 @@
         }
 
         button:hover {
-            background-color: #15548a;
+            background-color: #0056b3;
         }
 
-        /* Transaction History Styles */
         #transaction-history {
             display: none;
         }
 
-        /* Footer Styles */
         footer {
             text-align: center;
             margin-top: 20px;
             padding: 10px;
-            background-color: #1e6eb5;
+            background-color: #007bff;
             color: #fff;
+            border-radius: 5px;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             main {
                 padding: 10px;
@@ -126,12 +124,12 @@
     <header>
         <nav>
             <div id="logo">
-                <img src="https://i.ibb.co/s9PGR6m/IMG-2805.jpg" alt="PotatoBank Logo"> <!-- Updated Logo URL -->
+                <img src="https://i.ibb.co/s9PGR6m/IMG-2805.jpg" alt="PotatoBank Logo">
                 <h1>PotatoBank</h1>
             </div>
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#" id="accounts-btn">Accounts</a></li> <!-- Added id to the Accounts button -->
+                <li><a href="#" id="accounts-btn">Accounts</a></li>
                 <li><a href="#" onclick="toggleTransactions()">Transactions</a></li>
                 <li><a href="#">Translation</a></li>
                 <li><a href="#">Contact</a></li>
@@ -165,7 +163,9 @@
             </ul>
         </section>
     </main>
-    <!-- JavaScript Code -->
+    <footer>
+        &copy; 2023 PotatoBank. All rights reserved.
+    </footer>
     <script>
         // Placeholder for balance (in a real application, you'd fetch this from a server)
         let balance = 5000;
@@ -175,7 +175,7 @@
             if (!isNaN(depositAmount) && depositAmount > 0) {
                 balance += depositAmount;
                 updateBalance();
-                // You can also update the transaction history here.
+                updateTransactionHistory('Deposit', depositAmount);
             } else {
                 alert("Invalid deposit amount.");
             }
@@ -186,7 +186,7 @@
             if (!isNaN(withdrawalAmount) && withdrawalAmount > 0 && withdrawalAmount <= balance) {
                 balance -= withdrawalAmount;
                 updateBalance();
-                // You can also update the transaction history here.
+                updateTransactionHistory('Withdrawal', withdrawalAmount);
             } else {
                 alert("Invalid withdrawal amount or insufficient balance.");
             }
@@ -220,7 +220,7 @@
             // Add transactions to the list
             transactions.forEach(transaction => {
                 const transactionItem = document.createElement("li");
-                transactionItem.textContent = `${transaction.type}: $${transaction.amount} (${transaction.date})`;
+                transactionItem.textContent = `${transaction.type}: $${transaction.amount.toFixed(2)} (${transaction.date})`;
                 transactionsList.appendChild(transactionItem);
             });
         }
@@ -228,6 +228,15 @@
         function updateBalance() {
             const balanceElement = document.getElementById("balance");
             balanceElement.textContent = `Balance: $${balance.toFixed(2)}`;
+        }
+
+        function updateTransactionHistory(type, amount) {
+            const transactionsList = document.getElementById("transactions-list");
+            const transactionItem = document.createElement("li");
+            const currentDate = new Date().toLocaleDateString();
+
+            transactionItem.textContent = `${type}: $${amount.toFixed(2)} (${currentDate})`;
+            transactionsList.appendChild(transactionItem);
         }
     </script>
 </body>
